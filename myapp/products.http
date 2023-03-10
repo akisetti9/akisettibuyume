@@ -1,0 +1,19 @@
+// Creating table. Please create table only once.
+POST http://localhost:3000/products-create/
+
+###
+
+// Checking the table by getting all entries...
+GET http://localhost:3000/products/
+
+###
+
+// Requesting the required operations...
+POST http://localhost:3000/products/
+Content-Type: application/json
+
+[{"productId":123,"quantity":10,"operation":”add”},
+{"productId":143,"quantity":14,"operation":”add”},
+{"productId":193,"quantity":17,"operation":”subtract”}]
+
+###
