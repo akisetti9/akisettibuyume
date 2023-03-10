@@ -60,26 +60,26 @@ app.post("/products/", async (request, response) => {
         if (operation === "add") {
           const insert = `INSERT INTO product(product_id, quantity) values (${productId}, ${quantity})`;
           const dbResponse3 = await db.run(insert);
-          console.log("Product not available, so inserted successfully");
+          response.send("Product not available, so inserted successfully");
         } else {
-          console.log("Product not available to subtract");
+          response.send("Product not available to subtract");
         }
       } else {
         if (operation === "add") {
           const update = `UPDATE product SET quantity = ${quantity} WHERE product_id = ${productId}`;
           const dbResponse3 = await db.run(update);
-          console.log("Product quantity added successfully");
+          response.send("Product quantity added successfully");
         } else {
           const existingQuantity = convert(dbResponse2).quantity;
           if (existingQuantity >= quantity) {
             const newQuantity = existingQuantity - quantity;
             const remove = `UPDATE product SET quantity = ${newQuantity} WHERE product_id = ${productId}`;
             const dbResponse4 = await db.run(remove);
-            console.log("Product quantity subtracted successfully");
+            response.send("Product quantity subtracted successfully");
           } else {
             const removeAll = `UPDATE product SET quantity = ${0} WHERE product_id = ${productId}`;
             const dbResponse5 = await db.run(removeAll);
-            console.log(
+            response.send(
               "Available quantity of product is less than the requested, so removing all"
             );
           }
@@ -87,5 +87,5 @@ app.post("/products/", async (request, response) => {
       }
     }
   });
-  console.log("All the operations were performed");
+  response.send("All the operations were performed");
 });
